@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".WalkThrough1"
-    android:background="@color/SplashBack">
+    android:background="@color/SplashBack"
+    android:id="@+id/constraint_layout">
 
     <ImageView
         android:id="@+id/imageView"
@@ -47,8 +48,8 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/nextScreen"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_centerHorizontal="true"
         android:elevation="12dp"
 
