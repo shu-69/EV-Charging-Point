@@ -1,5 +1,8 @@
 package com.unknown.proj;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.net.http.Request;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -28,6 +35,8 @@ import kong.unirest.Unirest;
 public class first_frag extends Fragment {
 
     View view;
+
+    SliderView TopSlider;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,10 +82,23 @@ public class first_frag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_first_frag, container, false);
 
+        hook();
 
         // TODO :::::::::::::: Remove fuelPrice class
 
         return view;
+    }
+
+    private void hook() {
+        TopSlider = view.findViewById(R.id.image_slider);
+    }
+
+    private void setAutoScrollAdapter(Drawable[] images) {
+        AutoScrollAdapter autoScrollAdapter = new AutoScrollAdapter(images);
+        TopSlider.setSliderAdapter(autoScrollAdapter);
+        TopSlider.setIndicatorAnimation(IndicatorAnimationType.WORM);
+        TopSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+        TopSlider.startAutoCycle();
     }
 
     class fuelPrices extends Thread {
