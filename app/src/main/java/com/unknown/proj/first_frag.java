@@ -1,9 +1,6 @@
 package com.unknown.proj;
 
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.net.http.Request;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,17 +12,10 @@ import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnima
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.utils.URIBuilder;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
-import kong.unirest.Unirest;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,6 +74,8 @@ public class first_frag extends Fragment {
 
         hook();
 
+        setAutoScrollAdapter(new Drawable[]{getContext().getDrawable(R.drawable.scroll_img_1), getContext().getDrawable(R.drawable.scroll_img_2), getContext().getDrawable(R.drawable.scroll_img_3)});
+
         // TODO :::::::::::::: Remove fuelPrice class
 
         return view;
@@ -99,49 +91,6 @@ public class first_frag extends Fragment {
         TopSlider.setIndicatorAnimation(IndicatorAnimationType.WORM);
         TopSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
         TopSlider.startAutoCycle();
-    }
-
-    class fuelPrices extends Thread {
-        public void run() {
-
-            try {
-
-                HttpResponse response = (HttpResponse) Unirest.get("https://api.collectapi.com/gasPrice/otherCountriesDiesel")
-                        .header("content-type", "application/json")
-                        .header("authorization", "apikey 662ofCBZ7XFY3Qvc42K3vU:7ytqBpUdG9yG1KFUeukM46")
-                        .asString();
-
-                String result;
-
-
-
-                HttpEntity entity = response.getEntity();
-
-
-                if (entity != null) {
-
-                    // A Simple JSON Response Read
-                    InputStream instream = entity.getContent();
-                    result = convertStreamToString(instream);
-                    // now you have the string representation of the HTML request
-                    System.out.println("RESPONSE: " + result);
-                    instream.close();
-//                    if (response.getStatusLine().getStatusCode() == 200) {
-//                        netState.setLogginDone(true);
-//                    }
-
-                }
-                // Headers
-                org.apache.http.Header[] headers = response.getAllHeaders();
-                for (int i = 0; i < headers.length; i++) {
-                    System.out.println(headers[i]);
-                }
-            } catch (Exception e) {
-                System.out.println("Ex" + e.getMessage());
-            }
-
-
-        }
     }
 
     private static String convertStreamToString(InputStream is) {
