@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="defalutGreen">#1EE1A1</color>
     <color name="SplashBack">#151A24</color>
+    <color name="red">#D50000</color>
+    <color name="green">#246928</color>
 </resources>

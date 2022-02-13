@@ -1,12 +1,16 @@
 package com.unknown.proj;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.util.Base64;
@@ -14,6 +18,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -29,9 +35,12 @@ import java.io.ByteArrayOutputStream;
 public class third_frag extends Fragment {
 
     View view;
-    SharedPreferences VehicleDetails;
+    SharedPreferences VehicleDetails, TopCompaniesLink, NewLaunchesDetails;
 
     SliderView TopSlider;
+    CardView first_card, sec_card, third_card, fourth_card, fifth_card, sixth_card;
+    ImageView NLImg1, NLImg2, NLImg3, NLImg4, NLImg5, NLImg6;
+    TextView NLTxt1, NLTxt2, NLTxt3, NLTxt4, NLTxt5, NLTxt6;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,6 +91,16 @@ public class third_frag extends Fragment {
         hook();
 
         VehicleDetails = getContext().getSharedPreferences("VehicleDetails", Context.MODE_PRIVATE);
+        TopCompaniesLink = getContext().getSharedPreferences("TopCompaniesLink", Context.MODE_PRIVATE);
+        NewLaunchesDetails = getContext().getSharedPreferences("NewLaunchesDetails", Context.MODE_PRIVATE);
+
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         Bitmap[] images = {StringToBitMap(VehicleDetails.getString("i1", null)), StringToBitMap(VehicleDetails.getString("i2", null)),
                 StringToBitMap(VehicleDetails.getString("i3", null)), StringToBitMap(VehicleDetails.getString("i4", null))};
@@ -97,11 +116,166 @@ public class third_frag extends Fragment {
 
         setAutoScrollAdapter(images, names, descriptions, links);
 
-        return view;
+        setNewLaunches();
+
+        topCompaniesCardListeners();
+
+        newLaunchesListeners();
     }
 
     private void hook() {
         TopSlider = view.findViewById(R.id.vehicle_slider);
+
+        first_card = view.findViewById(R.id.first_card);
+        sec_card = view.findViewById(R.id.second_card);
+        third_card = view.findViewById(R.id.third_card);
+        fourth_card = view.findViewById(R.id.fourth_card);
+        fifth_card = view.findViewById(R.id.fifth_card);
+        sixth_card = view.findViewById(R.id.sixth_card);
+
+        NLImg1 = view.findViewById(R.id.new_launch_img1);
+        NLImg2 = view.findViewById(R.id.new_launch_img2);
+        NLImg3 = view.findViewById(R.id.new_launch_img3);
+        NLImg4 = view.findViewById(R.id.new_launch_img4);
+        NLImg5 = view.findViewById(R.id.new_launch_img5);
+        NLImg6 = view.findViewById(R.id.new_launch_img6);
+
+        NLTxt1 = view.findViewById(R.id.new_launch_text1);
+        NLTxt2 = view.findViewById(R.id.new_launch_text2);
+        NLTxt3 = view.findViewById(R.id.new_launch_text3);
+        NLTxt4 = view.findViewById(R.id.new_launch_text4);
+        NLTxt5 = view.findViewById(R.id.new_launch_text5);
+        NLTxt6 = view.findViewById(R.id.new_launch_text6);
+    }
+
+    private void setNewLaunches() {
+
+        if(NewLaunchesDetails.contains("i1") && NewLaunchesDetails.contains("t1")){
+            NLImg1.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            NLImg1.setImageBitmap(StringToBitMap(NewLaunchesDetails.getString("i1", null)));
+            NLTxt1.setText(NewLaunchesDetails.getString("t1", ""));
+        }
+
+        if(NewLaunchesDetails.contains("i2") && NewLaunchesDetails.contains("t2")){
+            NLImg2.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            NLImg2.setImageBitmap(StringToBitMap(NewLaunchesDetails.getString("i2", null)));
+            NLTxt2.setText(NewLaunchesDetails.getString("t2", ""));
+        }
+
+        if(NewLaunchesDetails.contains("i3") && NewLaunchesDetails.contains("t3")){
+            NLImg3.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            NLImg3.setImageBitmap(StringToBitMap(NewLaunchesDetails.getString("i3", null)));
+            NLTxt3.setText(NewLaunchesDetails.getString("t3", ""));
+        }
+
+        if(NewLaunchesDetails.contains("i4") && NewLaunchesDetails.contains("t4")){
+            NLImg4.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            NLImg4.setImageBitmap(StringToBitMap(NewLaunchesDetails.getString("i4", null)));
+            NLTxt4.setText(NewLaunchesDetails.getString("t4", ""));
+        }
+
+        if(NewLaunchesDetails.contains("i5") && NewLaunchesDetails.contains("t5")){
+            NLImg5.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            NLImg5.setImageBitmap(StringToBitMap(NewLaunchesDetails.getString("i5", null)));
+            NLTxt5.setText(NewLaunchesDetails.getString("t5", ""));
+        }
+
+        if(NewLaunchesDetails.contains("i6") && NewLaunchesDetails.contains("t6")){
+            NLImg6.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            NLImg6.setImageBitmap(StringToBitMap(NewLaunchesDetails.getString("i6", null)));
+            NLTxt6.setText(NewLaunchesDetails.getString("t6", ""));
+        }
+
+    }
+
+    private void newLaunchesListeners(){
+
+        NLImg1.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), WebView.class);
+            intent.putExtra("url", NewLaunchesDetails.getString("l1", ""));
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
+
+        NLImg2.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), WebView.class);
+            intent.putExtra("url", NewLaunchesDetails.getString("l2", ""));
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
+
+        NLImg3.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), WebView.class);
+            intent.putExtra("url", NewLaunchesDetails.getString("l3", ""));
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
+
+        NLImg4.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), WebView.class);
+            intent.putExtra("url", NewLaunchesDetails.getString("l4", ""));
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
+
+        NLImg5.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), WebView.class);
+            intent.putExtra("url", NewLaunchesDetails.getString("l5", ""));
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
+
+        NLImg6.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), WebView.class);
+            intent.putExtra("url", NewLaunchesDetails.getString("l6", ""));
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
+
+    }
+
+    private void topCompaniesCardListeners() {
+        first_card.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), WebView.class);
+            intent.putExtra("url", TopCompaniesLink.getString("link1", " "));
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
+
+        sec_card.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), WebView.class);
+            intent.putExtra("url", TopCompaniesLink.getString("link2", " "));
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
+
+        third_card.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), WebView.class);
+            intent.putExtra("url", TopCompaniesLink.getString("link3", " "));
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
+
+        fourth_card.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), WebView.class);
+            intent.putExtra("url", TopCompaniesLink.getString("link4", " "));
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
+
+        fifth_card.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), WebView.class);
+            intent.putExtra("url", TopCompaniesLink.getString("link5", " "));
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
+
+        sixth_card.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), WebView.class);
+            intent.putExtra("url", TopCompaniesLink.getString("link6", " "));
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
     }
 
     public String BitMapToString(Bitmap bitmap) throws Exception {

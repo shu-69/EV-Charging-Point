@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -19,12 +20,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 
 public class HomePage extends AppCompatActivity {
 
-    SharedPreferences VehicleDetails;
-    SharedPreferences.Editor editor;
+    SharedPreferences VehicleDetails, TopCompaniesLink, NewLaunchesDetails;
+    SharedPreferences.Editor editor_vehicleDetails, editor_topCompanies, editor_newLaunches;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -34,9 +34,15 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
 
         VehicleDetails = getSharedPreferences("VehicleDetails", MODE_PRIVATE);
-        editor = VehicleDetails.edit();
+        TopCompaniesLink = getSharedPreferences("TopCompaniesLink", MODE_PRIVATE);
+        NewLaunchesDetails = getSharedPreferences("NewLaunchesDetails", MODE_PRIVATE);
+        editor_vehicleDetails = VehicleDetails.edit();
+        editor_topCompanies = TopCompaniesLink.edit();
+        editor_newLaunches = NewLaunchesDetails.edit();
 
-        getVehicleImages();
+//        getVehicleImages();
+//        getTopCompaniesLink();
+//        getNewLaunches();
 
         BottomNavigationView bottom_nav = findViewById(R.id.bottomnav);
         bottom_nav.setOnNavigationItemSelectedListener(navListner);
@@ -45,7 +51,179 @@ public class HomePage extends AppCompatActivity {
 
     }
 
+    private void getNewLaunches() {
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference imageRef1 = storage.getReference().child("new_launches").child("image1.png");
+        imageRef1.getBytes(1024 * 1024)
+                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        try {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            editor_newLaunches.putString("i1", BitMapToString(bitmap));
+                            editor_newLaunches.apply();
+                        } catch (Exception e) {
+                        }
+                    }
+
+                });
+
+        StorageReference imageRef2 = storage.getReference().child("new_launches").child("image2.png");
+        imageRef2.getBytes(1024 * 1024)
+                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        try {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            editor_newLaunches.putString("i2", BitMapToString(bitmap));
+                            editor_newLaunches.apply();
+                        } catch (Exception e) {
+                        }
+                    }
+
+                });
+
+        StorageReference imageRef3 = storage.getReference().child("new_launches").child("image3.png");
+        imageRef3.getBytes(1024 * 1024)
+                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        try {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            editor_newLaunches.putString("i3", BitMapToString(bitmap));
+                            editor_newLaunches.apply();
+                        } catch (Exception e) {
+                        }
+                    }
+
+                });
+
+        StorageReference imageRef4 = storage.getReference().child("new_launches").child("image4.png");
+        imageRef4.getBytes(1024 * 1024)
+                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        try {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            editor_newLaunches.putString("i4", BitMapToString(bitmap));
+                            editor_newLaunches.apply();
+                        } catch (Exception e) {
+                        }
+                    }
+
+                });
+
+        StorageReference imageRef5 = storage.getReference().child("new_launches").child("image5.png");
+        imageRef5.getBytes(1024 * 1024)
+                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        try {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            editor_newLaunches.putString("i5", BitMapToString(bitmap));
+                            editor_newLaunches.apply();
+                        } catch (Exception e) {
+                        }
+                    }
+
+                });
+
+        StorageReference imageRef6 = storage.getReference().child("new_launches").child("image6.png");
+        imageRef6.getBytes(1024 * 1024)
+                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        try {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            editor_newLaunches.putString("i6", BitMapToString(bitmap));
+                            editor_newLaunches.apply();
+                        } catch (Exception e) {
+                        }
+                    }
+
+                });
+
+        db.collection("new_launches_details").document("Info1").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot snapshot) {
+                editor_newLaunches.putString("t1", snapshot.getString("Title"));
+                editor_newLaunches.putString("l1", snapshot.getString("Link"));
+
+                editor_newLaunches.apply();
+            }
+        });
+
+        db.collection("new_launches_details").document("Info2").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot snapshot) {
+                editor_newLaunches.putString("t2", snapshot.getString("Title"));
+                editor_newLaunches.putString("l2", snapshot.getString("Link"));
+
+                editor_newLaunches.apply();
+            }
+        });
+
+        db.collection("new_launches_details").document("Info3").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot snapshot) {
+                editor_newLaunches.putString("t3", snapshot.getString("Title"));
+                editor_newLaunches.putString("l3", snapshot.getString("Link"));
+
+                editor_newLaunches.apply();
+            }
+        });
+
+        db.collection("new_launches_details").document("Info4").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot snapshot) {
+                editor_newLaunches.putString("t4", snapshot.getString("Title"));
+                editor_newLaunches.putString("l4", snapshot.getString("Link"));
+
+                editor_newLaunches.apply();
+            }
+        });
+
+        db.collection("new_launches_details").document("Info5").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot snapshot) {
+                editor_newLaunches.putString("t5", snapshot.getString("Title"));
+                editor_newLaunches.putString("l5", snapshot.getString("Link"));
+
+                editor_newLaunches.apply();
+            }
+        });
+
+        db.collection("new_launches_details").document("Info6").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot snapshot) {
+                editor_newLaunches.putString("t6", snapshot.getString("Title"));
+                editor_newLaunches.putString("l6", snapshot.getString("Link"));
+
+                editor_newLaunches.apply();
+            }
+        });
+    }
+
+    private void getTopCompaniesLink() {
+        db.collection("top_companies_info").document("Links").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot snapshot) {
+                editor_topCompanies.putString("link1", snapshot.getString("Link1"));
+                editor_topCompanies.putString("link2", snapshot.getString("Link2"));
+                editor_topCompanies.putString("link3", snapshot.getString("Link3"));
+                editor_topCompanies.putString("link4", snapshot.getString("Link4"));
+                editor_topCompanies.putString("link5", snapshot.getString("Link5"));
+                editor_topCompanies.putString("link6", snapshot.getString("Link6"));
+
+                editor_topCompanies.apply();
+            }
+        });
+    }
+
     private void getVehicleImages() {
+
+        getVehicleNameAndDesc();
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference imageRef1 = storage.getReference().child("vehicle_images").child("vehicle1.png");
@@ -55,12 +233,10 @@ public class HomePage extends AppCompatActivity {
                     public void onSuccess(byte[] bytes) {
                         try {
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                            editor.putString("i1", BitMapToString(bitmap));
-//                            FileOutputStream out = openFileOutput("banner1", MODE_PRIVATE);
-//                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-//                            out.flush();
-//                            out.close();
+                            editor_vehicleDetails.putString("i1", BitMapToString(bitmap));
+                            editor_vehicleDetails.apply();
                         } catch (Exception e) {
+
                         }
                     }
 
@@ -72,11 +248,8 @@ public class HomePage extends AppCompatActivity {
                     public void onSuccess(byte[] bytes) {
                         try {
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                            editor.putString("i2", BitMapToString(bitmap));
-//                            FileOutputStream out = openFileOutput("banner1", MODE_PRIVATE);
-//                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-//                            out.flush();
-//                            out.close();
+                            editor_vehicleDetails.putString("i2", BitMapToString(bitmap));
+                            editor_vehicleDetails.apply();
                         } catch (Exception e) {
                         }
                     }
@@ -89,11 +262,8 @@ public class HomePage extends AppCompatActivity {
                     public void onSuccess(byte[] bytes) {
                         try {
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                            editor.putString("i3", BitMapToString(bitmap));
-//                            FileOutputStream out = openFileOutput("banner1", MODE_PRIVATE);
-//                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-//                            out.flush();
-//                            out.close();
+                            editor_vehicleDetails.putString("i3", BitMapToString(bitmap));
+                            editor_vehicleDetails.apply();
                         } catch (Exception e) {
                         }
                     }
@@ -106,61 +276,57 @@ public class HomePage extends AppCompatActivity {
                     public void onSuccess(byte[] bytes) {
                         try {
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                            editor.putString("i4", BitMapToString(bitmap));
-//                            FileOutputStream out = openFileOutput("banner1", MODE_PRIVATE);
-//                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-//                            out.flush();
-//                            out.close();
+                            editor_vehicleDetails.putString("i4", BitMapToString(bitmap));
+                            editor_vehicleDetails.apply();
                         } catch (Exception e) {
                         }
                     }
 
                 });
 
-        editor.apply();
-
-        getVehicleNameAndDesc();
-
     }
 
-    private void getVehicleNameAndDesc(){
-        db.collection("vehicle_details").document("vehicle1").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    private void getVehicleNameAndDesc() {
+        db.collection("vehicle_details").document("Vehicle1").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot snapshot) {
-                editor.putString("n1", snapshot.getString("VehicleName"));
-                editor.putString("d1", snapshot.getString("VehicleDescription"));
-                editor.putString("l1", snapshot.getString("Link"));
+                editor_vehicleDetails.putString("n1", snapshot.getString("VehicleName"));
+                editor_vehicleDetails.putString("d1", snapshot.getString("VehicleDescription"));
+                editor_vehicleDetails.putString("l1", snapshot.getString("Link"));
+                editor_vehicleDetails.apply();
             }
         });
 
-        db.collection("vehicle_details").document("vehicle2").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("vehicle_details").document("Vehicle2").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot snapshot) {
-                editor.putString("n2", snapshot.getString("VehicleName"));
-                editor.putString("d2", snapshot.getString("VehicleDescription"));
-                editor.putString("l2", snapshot.getString("Link"));
+                editor_vehicleDetails.putString("n2", snapshot.getString("VehicleName"));
+                editor_vehicleDetails.putString("d2", snapshot.getString("VehicleDescription"));
+                editor_vehicleDetails.putString("l2", snapshot.getString("Link"));
+                editor_vehicleDetails.apply();
             }
         });
 
-        db.collection("vehicle_details").document("vehicle3").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("vehicle_details").document("Vehicle3").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot snapshot) {
-                editor.putString("n3", snapshot.getString("VehicleName"));
-                editor.putString("d3", snapshot.getString("VehicleDescription"));
-                editor.putString("l3", snapshot.getString("Link"));
+                editor_vehicleDetails.putString("n3", snapshot.getString("VehicleName"));
+                editor_vehicleDetails.putString("d3", snapshot.getString("VehicleDescription"));
+                editor_vehicleDetails.putString("l3", snapshot.getString("Link"));
+                editor_vehicleDetails.apply();
             }
         });
 
-        db.collection("vehicle_details").document("vehicle4").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("vehicle_details").document("Vehicle4").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot snapshot) {
-                editor.putString("n4", snapshot.getString("VehicleName"));
-                editor.putString("d4", snapshot.getString("VehicleDescription"));
-                editor.putString("l4", snapshot.getString("Link"));
+                editor_vehicleDetails.putString("n4", snapshot.getString("VehicleName"));
+                editor_vehicleDetails.putString("d4", snapshot.getString("VehicleDescription"));
+                editor_vehicleDetails.putString("l4", snapshot.getString("Link"));
+                editor_vehicleDetails.apply();
             }
         });
 
-        editor.apply();
     }
 
     public String BitMapToString(Bitmap bitmap) throws Exception {
@@ -176,17 +342,19 @@ public class HomePage extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.first_frag:
                     selectedFragment = new first_frag();
                     break;
 
-                case R.id.sec_frag:_frag:
-                selectedFragment = new sec_frag();
+                case R.id.sec_frag:
+                    _frag:
+                    selectedFragment = new sec_frag();
                     break;
 
-                case R.id.third_frag:t_frag:
-                selectedFragment = new third_frag();
+                case R.id.third_frag:
+                    t_frag:
+                    selectedFragment = new third_frag();
                     break;
 //
 //                case R.id.fourth_frag:_frag:

@@ -1,12 +1,29 @@
 package com.unknown.proj;
 
+import android.app.ActionBar;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.android.material.tabs.TabLayout;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +31,12 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class sec_frag extends Fragment {
+
+    View view;
+
+    TabLayout tabLayout;
+
+    Handler mainHandler = new Handler();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +82,51 @@ public class sec_frag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sec_frag, container, false);
+        view =  inflater.inflate(R.layout.fragment_sec_frag, container, false);
+
+        tabLayout = view.findViewById(R.id.sec_frag_tab_layout);
+
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sec_frag_fragmentContainerView, new EvStationsListFragment()).commit();
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if(tab.getId() == 0){
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sec_frag_fragmentContainerView, new EvStationsListFragment()).commit();
+                }else if(tab.getId() == 1){
+                   // TODO :: Change the fragment
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        return view;
     }
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

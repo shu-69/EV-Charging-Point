@@ -45,41 +45,33 @@ public class VehicleDetailsAutoScrollAdapter extends SliderViewAdapter<VehicleDe
         viewHolder.VehicleImage.setImageBitmap(images[position]);
         viewHolder.VehicleName.setText(names[position]);
         viewHolder.VehicleDescription.setText(descriptions[position]);
-//        if (images[position] == null) {
-//            viewHolder.LAnimView.setAnimation("banner_loading2.json");
-//            viewHolder.LAnimView.loop(true);
-//            viewHolder.LAnimView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//        }
-        //View v = new View(viewHolder.itemView.getContext());
+
+        viewHolder.ParentCard.setOnClickListener(v -> setClickListeners(v, position));
 
     }
 
     private void setClickListeners(View view, int pos) {
 
-//        locationSP = view.getContext().getSharedPreferences("Location", Context.MODE_PRIVATE);
-//        if (pos == 0) {
-//            if (locationSP.getString("city", "").isEmpty() || locationSP.getString("state", "").isEmpty() || locationSP.getString("country", "").isEmpty()) {
-//                Intent intent = new Intent(view.getContext(), location.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                intent.putExtra("destiny", "next");
-//                view.getContext().startActivity(intent);
-//            } else {
-//                Intent intent = new Intent(view.getContext(), allHospitals.class);
-//                view.getContext().startActivity(intent);
-//            }
-//        }
-//        if (pos == 1) {
-//            view.getContext().startActivity(new Intent(view.getContext(), ambulanceBooking.class));
-//        }
-//        if (pos == 2) {
-//            view.getContext().startActivity(new Intent(view.getContext(), healthInsu.class));
-//        }
-//        if (pos == 3) {
-//            view.getContext().startActivity(new Intent(view.getContext(), invite.class));
-//        }
-//        if (pos == 4) {
-//            view.getContext().startActivity(new Intent(view.getContext(), helpAndSupport.class));
-//        }
+        if (pos == 0) {
+           Intent intent = new Intent(view.getContext(), WebView.class);
+           intent.putExtra("url", links[pos]);
+           view.getContext().startActivity(intent);
+        }
+        if (pos == 1) {
+            Intent intent = new Intent(view.getContext(), WebView.class);
+            intent.putExtra("url", links[pos]);
+            view.getContext().startActivity(intent);
+        }
+        if (pos == 2) {
+            Intent intent = new Intent(view.getContext(), WebView.class);
+            intent.putExtra("url", links[pos]);
+            view.getContext().startActivity(intent);
+        }
+        if (pos == 3) {
+            Intent intent = new Intent(view.getContext(), WebView.class);
+            intent.putExtra("url", links[pos]);
+            view.getContext().startActivity(intent);
+        }
     }
 
     @Override

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/SplashBack"
+    tools:context=".EvStationsListFragment">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading_anim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="cars_loading_white.json"
+        app:lottie_loop="true" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:scrollbarThumbHorizontal="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/controls"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/SplashBack"
+                android:visibility="gone"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/segoeui_bold"
+                        android:text="Filter by Connector Type"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/connector_types_selector"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        app:selectionRequired="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/c1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:checkedIcon="@drawable/ic_check_circle_15"
+                            app:chipBackgroundColor="@color/white"
+                            android:text="NEMA 14-50"
+                            android:checkable="true"
+                            android:textColor="@color/black"
+                            app:chipCornerRadius="8dp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/c2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:checkedIcon="@drawable/ic_check_circle_15"
+                            app:chipBackgroundColor="@color/white"
+                            android:text="NEMA 5-15"
+                            android:checkable="true"
+                            android:textColor="@color/black"
+                            app:chipCornerRadius="8dp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/c3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:checkedIcon="@drawable/ic_check_circle_15"
+                            app:chipBackgroundColor="@color/white"
+                            android:text="NEMA 5-20"
+                            android:checkable="true"
+                            android:textColor="@color/black"
+                            app:chipCornerRadius="8dp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/c4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:checkedIcon="@drawable/ic_check_circle_15"
+                            app:chipBackgroundColor="@color/white"
+                            android:text="Tesla"
+                            android:checkable="true"
+                            android:textColor="@color/black"
+                            app:chipCornerRadius="8dp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/c5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="J1772"
+                            app:checkedIcon="@drawable/ic_check_circle_15"
+                            app:chipBackgroundColor="@color/white"
+                            android:checkable="true"
+                            android:textColor="@color/black"
+                            app:chipCornerRadius="8dp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/c6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:checkedIcon="@drawable/ic_check_circle_15"
+                            app:chipBackgroundColor="@color/white"
+                            android:text="CCS"
+                            android:checkable="true"
+                            android:textColor="@color/black"
+                            app:chipCornerRadius="8dp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/c7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:checkedIcon="@drawable/ic_check_circle_15"
+                            app:chipBackgroundColor="@color/white"
+                            android:text="CHAdeMO"
+                            android:checkable="true"
+                            android:textColor="@color/black"
+                            app:chipCornerRadius="8dp" />
+
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/topLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/error_message_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/SplashBack"
+        android:visibility="gone"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/SplashBack"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="empty_data_whale_anim.json"
+                app:lottie_loop="true" />
+
+            <TextView
+                android:id="@+id/error_message_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoui"
+                android:text="Something went wrong!"
+                android:textColor="@color/white" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/retry_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                app:cardBackgroundColor="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/segoui"
+                    android:text="Retry!"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
