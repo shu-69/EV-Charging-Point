@@ -27,6 +27,7 @@ public class HomePage extends AppCompatActivity {
     SharedPreferences.Editor editor_vehicleDetails, editor_topCompanies, editor_newLaunches;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public static BottomNavigationView bottom_nav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class HomePage extends AppCompatActivity {
 //        getTopCompaniesLink();
 //        getNewLaunches();
 
-        BottomNavigationView bottom_nav = findViewById(R.id.bottomnav);
+        bottom_nav = findViewById(R.id.bottomnav);
         bottom_nav.setOnNavigationItemSelectedListener(navListner);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new first_frag()).commit();

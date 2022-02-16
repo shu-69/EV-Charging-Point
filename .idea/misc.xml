@@ -4,9 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/drawable/back_icon.xml" value="0.2555" />
+        <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/drawable/fuel_prices_card_background.xml" value="0.1895" />
+        <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/drawable/ic_expand_more_20.xml" value="0.2555" />
         <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/drawable/ic_plug_100.xml" value="0.2555" />
         <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/layout-v26/ev_station_details_card.xml" value="0.25" />
+        <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/layout/activity_connect_ncontrol.xml" value="0.25" />
         <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/layout/activity_home_page.xml" value="0.2246376811594203" />
+        <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/layout/activity_location.xml" value="0.264" />
         <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/layout/activity_walk_through1.xml" value="0.25" />
         <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/layout/activity_walk_through3.xml" value="0.22871376811594202" />
@@ -14,9 +18,11 @@
         <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/layout/activity_web_view.xml" value="0.20742753623188406" />
         <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/layout/ev_station_details_card.xml" value="0.4" />
         <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/layout/fragment_ev_stations_list.xml" value="0.6" />
-        <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/layout/fragment_first_frag.xml" value="0.21965579710144928" />
+        <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/layout/fragment_first_frag.xml" value="0.264" />
+        <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/layout/fragment_map.xml" value="0.25" />
         <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/layout/fragment_sec_frag.xml" value="0.25" />
         <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/layout/fragment_third_frag.xml" value="0.152" />
+        <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/layout/simple_textview.xml" value="0.25" />
         <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/layout/slider_item.xml" value="0.1" />
         <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/layout/vehicle_details_banner_card.xml" value="0.25" />
         <entry key="..\:/Users/shubh/AndroidStudioProjects/EVProject/app/src/main/res/menu/menu_home_page.xml" value="0.25" />

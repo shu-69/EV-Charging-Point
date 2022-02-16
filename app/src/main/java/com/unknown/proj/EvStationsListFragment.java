@@ -1,7 +1,9 @@
 package com.unknown.proj;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,6 +37,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +56,13 @@ public class EvStationsListFragment extends Fragment {
     ChipGroup connectorTypes;
     TextView errorText;
     Chip c1, c2, c3, c4, c5, c6, c7;
+
+    Context context;
+
+    String Country = "";
+    String State = "";
+
+    SharedPreferences LocationSP;
 
     ArrayList<String> selectedChipData = new ArrayList<>();
 
@@ -114,7 +126,18 @@ public class EvStationsListFragment extends Fragment {
         c6 = view.findViewById(R.id.c6);
         c7 = view.findViewById(R.id.c7);
 
-        //addEVDetailsCard();
+        context = getContext();
+
+        LocationSP = context.getSharedPreferences("Location", Context.MODE_PRIVATE);
+
+        if(LocationSP.contains("country")){
+            Country = LocationSP.getString("country", "United States");
+            State = LocationSP.getString("state", "");
+        }else{
+            Country = context.getString(R.string.default_country);
+        }
+
+        first_frag.tabPos = 0;
 
         /**
          * Response Fields
@@ -142,7 +165,7 @@ public class EvStationsListFragment extends Fragment {
          */
 
         if (checkInternetConnection()) {
-            getEvStations("OR", "NEMA1450,NEMA515,NEMA520,J1772,J1772COMBO,CHADEMO,TESLA");
+            getEvStations("OR", "NEMA1450,NEMA515,NEMA520,J1772,J1772COMBO,CHADEMO,TESLA", getCountryCode(Country), State);
             //Toast.makeText(getContext(), "Good", Toast.LENGTH_LONG).show();
         } else {
             errorMessageCard.setVisibility(View.VISIBLE);
@@ -153,7 +176,7 @@ public class EvStationsListFragment extends Fragment {
         retryCard.setOnClickListener(v -> {
             errorMessageCard.setVisibility(View.GONE);
             if (checkInternetConnection()) {
-                if(selectedChipData.size() != 0){
+                if (selectedChipData.size() != 0) {
                     String allConnectorTypes = "";
                     for (int i = 0; i < selectedChipData.size(); i++) {
                         if (i == selectedChipData.size() - 1)
@@ -162,9 +185,9 @@ public class EvStationsListFragment extends Fragment {
                             allConnectorTypes += selectedChipData.get(i) + ",";
                     }
 
-                    getEvStations("AND", allConnectorTypes);
-                }else{
-                    getEvStations("OR", "NEMA1450,NEMA515,NEMA520,J1772,J1772COMBO,CHADEMO,TESLA");
+                    getEvStations("AND", allConnectorTypes, getCountryCode(Country), State);
+                } else {
+                    getEvStations("OR", "NEMA1450,NEMA515,NEMA520,J1772,J1772COMBO,CHADEMO,TESLA", getCountryCode(Country), State);
                 }
                 //Toast.makeText(getContext(), "Good", Toast.LENGTH_LONG).show();
             } else {
@@ -234,7 +257,8 @@ public class EvStationsListFragment extends Fragment {
                         allConnectorTypes += selectedChipData.get(i) + ",";
                 }
 
-                getEvStations("AND", allConnectorTypes);
+                topLinearContainer.removeAllViews();
+                getEvStations("AND", allConnectorTypes, getCountryCode(Country), State);
 
             }
         };
@@ -255,6 +279,7 @@ public class EvStationsListFragment extends Fragment {
                                   String[] ConnectorTypes, String Price, String Phone, String LocationLink, double latitude, double longitude, String Status) {
 
         Handler handler;
+        View view1 = view.inflate(getContext(), R.layout.ev_station_details_card, null);
         //Runnable handlerTask;
 
         handler = new Handler(Looper.getMainLooper());
@@ -264,7 +289,6 @@ public class EvStationsListFragment extends Fragment {
 
                 loadingAnim.setVisibility(View.GONE);
                 errorMessageCard.setVisibility(View.GONE);
-                View view1 = View.inflate(getContext(), R.layout.ev_station_details_card, null);
 
                 TextView stationNameTextV = view1.findViewById(R.id.station_name);
                 TextView stationAddressTextV = view1.findViewById(R.id.station_address);
@@ -285,7 +309,8 @@ public class EvStationsListFragment extends Fragment {
                 stationAddressTextV.setText(StationAddress);
                 if (FuelType.equals("ELEC")) {
                     fuelTypeTextV.setText("Electric");
-                    fuelTypeImage.setImageDrawable(getContext().getDrawable(R.drawable.charging_station_icon));
+                    fuelTypeImage.setImageDrawable(context.getDrawable(R.drawable.charging_station_icon));
+
                 } else
                     fuelTypeTextV.setText(FuelType);
                 level_1_evse_ports.setText(LVL_1_EVSE + "");
@@ -294,7 +319,7 @@ public class EvStationsListFragment extends Fragment {
                 boolean isTeslaAvailable = false;
                 //NEMA1450 (NEMA 14-50), NEMA515 (NEMA 5-15), NEMA520 (NEMA 5-20), J1772 (J1772), J1772COMBO (CCS), CHADEMO (CHAdeMO), TESLA (Tesla)
                 for (int i = 0; i < ConnectorTypes.length; i++) {
-                    Chip chip = new Chip(getContext());
+                    Chip chip = new Chip(context);
                     if (ConnectorTypes[i].equals("NEMA1450"))
                         chip.setText("NEMA 14-50");
                     else if (ConnectorTypes[i].equals("NEMA515"))
@@ -359,13 +384,33 @@ public class EvStationsListFragment extends Fragment {
     }
 
 
-    private void getEvStations(String ConnectorOperator, String ConnectorType) {
-        String link = "https://developer.nrel.gov/api/alt-fuel-stations/v1.json?" + "fuel_type=" + "ELEC" + "&" + "country=" + "US" + "&" +
-                "limit=" + "200" + "&" + "api_key=" + "z81ByCNp5MiukKlDiOLahKLWUhUdplalf1EMFhwb" + "&" + "access=" + "public" + "&" + "status=" + "E,T" + "&" +
+    private void getEvStations(String ConnectorOperator, String ConnectorType, String CountryCode, String StateCode) {
+        String link = "https://developer.nrel.gov/api/alt-fuel-stations/v1.json?" + "fuel_type=" + "ELEC" + "&" + "country=" + CountryCode + "&" +
+                "limit=" + "200" + "&" + "api_key=" + getContext().getString(R.string.EVStationsApiKey) + "&" + "access=" + "public" + "&" + "status=" + "E,T" + "&" +
                 "ev_connector_type_operator=" + ConnectorOperator + "&" + "ev_connector_type=" + ConnectorType;
 
+        //"state=" + State + "&" +
         new fetchData(link).start();
         //"state=" + "CA" +
+    }
+
+    public static String getCountryCode(String CountryName){
+        try {
+            String[] isoCountriesCodes = Locale.getISOCountries();
+            Map<String, String> countryMap = new HashMap<>();
+            Locale locale;
+            String name;
+
+            for(String code : isoCountriesCodes){
+                locale = new Locale("", code);
+                name = locale.getDisplayCountry();
+                countryMap.put(name, code);
+            }
+
+            return countryMap.get(CountryName);
+        }catch (Exception e){
+            return "";
+        }
     }
 
     class fetchData extends Thread {
@@ -451,7 +496,7 @@ public class EvStationsListFragment extends Fragment {
                                 errorMessageCard.setVisibility(View.VISIBLE);
                                 errorText.setText("No Charging Stations found at your location.");
                             } else {
-                                loadingAnim.setVisibility(View.INVISIBLE);
+                                //loadingAnim.setVisibility(View.INVISIBLE);
                                 errorMessageCard.setVisibility(View.INVISIBLE);
                                 controls.setVisibility(View.VISIBLE);
                             }
@@ -491,7 +536,7 @@ public class EvStationsListFragment extends Fragment {
                         String pricing = dataObj.getString("ev_pricing");
                         double latitude = dataObj.getDouble("latitude");
                         double longitude = dataObj.getDouble("longitude");
-                        Log.d("JsonDataTypes", dataObj.getString("ev_connector_types"));
+                        //Log.d("JsonDataTypes", dataObj.getString("ev_connector_types"));
                         JSONArray connectorType = dataObj.getJSONArray("ev_connector_types");
                         String[] connectorTypeArr = new String[connectorType.length()];
                         for (int j = 0; j < connectorType.length(); j++) {
@@ -519,8 +564,16 @@ public class EvStationsListFragment extends Fragment {
                 }
 
             } catch (Exception e) {
-                e.printStackTrace();
-                Log.d("JsonData", e.getMessage());
+                handler = new Handler(Looper.getMainLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                            loadingAnim.setVisibility(View.GONE);
+                            errorMessageCard.setVisibility(View.VISIBLE);
+                            errorText.setText("No Charging Stations found at your location.");
+                    }
+                }, 100);
+                //Log.d("JsonData", e.getMessage());
             }
 
 

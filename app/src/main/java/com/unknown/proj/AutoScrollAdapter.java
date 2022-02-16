@@ -1,5 +1,6 @@
 package com.unknown.proj;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,16 +12,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
 public class AutoScrollAdapter extends SliderViewAdapter<AutoScrollAdapter.Holder> {
 
     Drawable[] images;
-    SharedPreferences locationSP;
+    Activity activity;
 
-    public AutoScrollAdapter(Drawable[] images) {
+    public AutoScrollAdapter(Drawable[] images, Activity activity) {
         this.images = images;
+        this.activity = activity;
     }
 
     @Override
@@ -43,37 +48,25 @@ public class AutoScrollAdapter extends SliderViewAdapter<AutoScrollAdapter.Holde
             viewHolder.LAnimView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
         //View v = new View(viewHolder.itemView.getContext());
-        if (images.length != 4)
-            viewHolder.LAnimView.setOnClickListener(view -> setClickListeners(view, position));
+
+        viewHolder.LAnimView.setOnClickListener(view -> setClickListeners(view, position, activity));
 
     }
 
-    private void setClickListeners(View view, int pos) {
+    private void setClickListeners(View view, int pos, Activity activity) {
 
-//        locationSP = view.getContext().getSharedPreferences("Location", Context.MODE_PRIVATE);
-//        if (pos == 0) {
-//            if (locationSP.getString("city", "").isEmpty() || locationSP.getString("state", "").isEmpty() || locationSP.getString("country", "").isEmpty()) {
-//                Intent intent = new Intent(view.getContext(), location.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                intent.putExtra("destiny", "next");
-//                view.getContext().startActivity(intent);
-//            } else {
-//                Intent intent = new Intent(view.getContext(), allHospitals.class);
-//                view.getContext().startActivity(intent);
-//            }
-//        }
-//        if (pos == 1) {
-//            view.getContext().startActivity(new Intent(view.getContext(), ambulanceBooking.class));
-//        }
-//        if (pos == 2) {
-//            view.getContext().startActivity(new Intent(view.getContext(), healthInsu.class));
-//        }
-//        if (pos == 3) {
-//            view.getContext().startActivity(new Intent(view.getContext(), invite.class));
-//        }
-//        if (pos == 4) {
-//            view.getContext().startActivity(new Intent(view.getContext(), helpAndSupport.class));
-//        }
+        FragmentManager ft = ((FragmentActivity) activity).getSupportFragmentManager();
+
+        if (pos == 0) {
+           ft.beginTransaction().replace(R.id.fragmentContainerView, new sec_frag()).commit();
+        }
+        if (pos == 1) {
+            ft.beginTransaction().replace(R.id.fragmentContainerView, new third_frag()).commit();
+        }
+        if (pos == 2) {
+
+        }
+
     }
 
     @Override

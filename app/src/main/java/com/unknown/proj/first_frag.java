@@ -1,13 +1,21 @@
 package com.unknown.proj;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.tabs.TabLayout;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -27,6 +35,14 @@ public class first_frag extends Fragment {
     View view;
 
     SliderView TopSlider;
+    CardView art1, art2, art3, art4, art5, art6;
+    CardView banner1, banner2, banner3;
+    ImageView bannerBottom, locationExpandImg;
+    public static TextView locationTextV;
+
+    SharedPreferences LocationSP;
+
+    public static int tabPos = 0;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,19 +90,130 @@ public class first_frag extends Fragment {
 
         hook();
 
+        LocationSP = getContext().getSharedPreferences("Location", Context.MODE_PRIVATE);
+
+        if(LocationSP.contains("country")){
+            if(LocationSP.contains("city"))
+                first_frag.locationTextV.setText(LocationSP.getString("city", "") + ", " + LocationSP.getString("country", ""));
+            else
+                first_frag.locationTextV.setText(LocationSP.getString("country", ""));
+
+        }else
+            first_frag.locationTextV.setText(getString(R.string.default_country));
+
         setAutoScrollAdapter(new Drawable[]{getContext().getDrawable(R.drawable.scroll_img_1), getContext().getDrawable(R.drawable.scroll_img_2), getContext().getDrawable(R.drawable.scroll_img_3)});
 
-        // TODO :::::::::::::: Remove fuelPrice class
+        articleListeners();
+
+        bannersListeners();
+
+        locationTextV.setOnClickListener(v ->{
+            Intent intent = new Intent(getContext(), Location.class);
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
+
+        locationExpandImg.setOnClickListener(v ->{
+            Intent intent = new Intent(getContext(), Location.class);
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
 
         return view;
     }
 
     private void hook() {
         TopSlider = view.findViewById(R.id.image_slider);
+
+        art1 = view.findViewById(R.id.art1);
+        art2 = view.findViewById(R.id.art2);
+        art3 = view.findViewById(R.id.art3);
+        art4 = view.findViewById(R.id.art4);
+        art5 = view.findViewById(R.id.art5);
+        art6 = view.findViewById(R.id.art6);
+
+        banner1 = view.findViewById(R.id.banner1);
+        banner2 = view.findViewById(R.id.banner2);
+        banner3 = view.findViewById(R.id.banner3);
+
+        bannerBottom = view.findViewById(R.id.banner_bottom);
+
+        locationTextV = view.findViewById(R.id.locationTextV);
+        locationExpandImg = view.findViewById(R.id.expand_image);
+    }
+
+    private void bannersListeners() {
+
+        banner1.setOnClickListener(v ->{
+            Intent intent = new Intent(getContext(), connect_n_control.class);
+            startActivity(intent);
+            
+        });
+
+        banner2.setOnClickListener(v ->{
+            tabPos = 1;
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new sec_frag()).commit();
+            HomePage.bottom_nav.setSelectedItemId(R.id.sec_frag);
+        });
+
+        banner3.setOnClickListener(v ->{
+
+        });
+
+        bannerBottom.setOnClickListener(v ->{
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new third_frag()).commit();
+            HomePage.bottom_nav.setSelectedItemId(R.id.third_frag);
+        });
+    }
+
+    private void articleListeners(){
+        art1.setOnClickListener(v ->{
+            Intent intent = new Intent(getContext(), WebView.class);
+            intent.putExtra("url", getContext().getString(R.string.article1link));
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
+
+        art2.setOnClickListener(v ->{
+            Intent intent = new Intent(getContext(), WebView.class);
+            intent.putExtra("url", getContext().getString(R.string.article2link));
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
+
+        art3.setOnClickListener(v ->{
+            Intent intent = new Intent(getContext(), WebView.class);
+            intent.putExtra("url", getContext().getString(R.string.article3link));
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
+
+        art4.setOnClickListener(v ->{
+            Intent intent = new Intent(getContext(), WebView.class);
+            intent.putExtra("url", getContext().getString(R.string.article4link));
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
+
+        art5.setOnClickListener(v ->{
+            Intent intent = new Intent(getContext(), WebView.class);
+            intent.putExtra("url", getContext().getString(R.string.article5link));
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
+
+        art6.setOnClickListener(v ->{
+            Intent intent = new Intent(getContext(), WebView.class);
+            intent.putExtra("url", "https://www.bloomberg.com/opinion/articles/2021–11-04/electric-cars-aren-t-as-green-as-you-might-think?utm_medium=cpc_search&utm_campaign=NB_ACQ_DSAXX_DSATESTTCPAXX_EVG_XXXX_XXX_COALL_EN_EN_X_BLOM_GO_SE_XXX_XXXXXXXXXX&gclid=CjwKCAiA9aKQBhBREiwAyGP5lfx_rkEwXov7AE8QN5OJwMiIDwwfSVBs6Pj4FNAsAL4BQPWoyqTG9BoCJ-UQAvD_BwE&gclsrc=aw.ds");
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
+        });
+
+
     }
 
     private void setAutoScrollAdapter(Drawable[] images) {
-        AutoScrollAdapter autoScrollAdapter = new AutoScrollAdapter(images);
+        AutoScrollAdapter autoScrollAdapter = new AutoScrollAdapter(images, getActivity());
         TopSlider.setSliderAdapter(autoScrollAdapter);
         TopSlider.setIndicatorAnimation(IndicatorAnimationType.WORM);
         TopSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);

@@ -4,6 +4,8 @@ import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -34,7 +36,7 @@ public class sec_frag extends Fragment {
 
     View view;
 
-    TabLayout tabLayout;
+    public static TabLayout tabLayout;
 
     Handler mainHandler = new Handler();
 
@@ -86,16 +88,42 @@ public class sec_frag extends Fragment {
 
         tabLayout = view.findViewById(R.id.sec_frag_tab_layout);
 
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sec_frag_fragmentContainerView, new EvStationsListFragment()).commit();
+
+//        if(first_frag.viewCount >= 3){
+//            first_frag.tabPos = 0;
+//            first_frag.viewCount = 0 ;
+//        }
+
+        try {
+            tabLayout.getTabAt(first_frag.tabPos).select();
+            if(first_frag.tabPos == 1)
+            {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sec_frag_fragmentContainerView, new MapFragment()).commit();
+            }
+            else
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sec_frag_fragmentContainerView, new EvStationsListFragment()).commit();
+        }catch (Exception e){
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sec_frag_fragmentContainerView, new EvStationsListFragment()).commit();
+        }
+
+        //first_frag.tabPos = 0;
+
+//        if(tabLayout.getSelectedTabPosition() == 0){
+//            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sec_frag_fragmentContainerView, new EvStationsListFragment()).commit();
+//        }else if(tabLayout.getSelectedTabPosition() == 1){
+//            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sec_frag_fragmentContainerView, new MapFragment()).commit();
+//        }
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if(tab.getId() == 0){
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sec_frag_fragmentContainerView, new EvStationsListFragment()).commit();
-                }else if(tab.getId() == 1){
-                   // TODO :: Change the fragment
-                }
+                try{
+                    if(tabLayout.getSelectedTabPosition() == 0){
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sec_frag_fragmentContainerView, new EvStationsListFragment()).commit();
+                    }else if(tabLayout.getSelectedTabPosition() == 1){
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sec_frag_fragmentContainerView, new MapFragment()).commit();
+                    }
+                }catch (Exception e){}
             }
 
             @Override
@@ -111,8 +139,6 @@ public class sec_frag extends Fragment {
 
         return view;
     }
-
-
 
 }
 

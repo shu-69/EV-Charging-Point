@@ -2,5 +2,20 @@
     <string name="app_name">EV Project</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="default_location">US</string>
+    <string name="default_country">United States</string>
+
+    <string name="article1title">Electric cars and batteries: how will the world produce enough?</string>
+    <string name="article2title">Electric Vehicle Benefits and Considerations</string>
+    <string name="article3title">On the Move: Unpacking the Challenges and Opportunities of Electric Vehicles</string>
+    <string name="article4title">ELECTRIC VEHICLE VS FUEL VEHICLE: WHICH ONE IS BETTER TO GO WITH?</string>
+    <string name="article5title">Pros and cons of electric cars</string>
+    <string name="article6title">That Electric Car’s Not as Green as You Think</string>
+
+    <string name="article1link">https://www.nature.com/articles/d41586-021-02222-1</string>
+    <string name="article2link">https://afdc.energy.gov/fuels/electricity_benefits.html</string>
+    <string name="article3link">https://www.eesi.org/articles/view/on-the-move-unpacking-the-challenges-and-opportunities-of-electric-vehicles</string>
+    <string name="article4link">https://www.shriramgi.com/news-events/electric-vehicle-vs-fuel-vehicle-which-one-is-better-to-go-with/</string>
+    <string name="article5link">https://www.energysage.com/electric-vehicles/101/pros-and-cons-electric-cars/</string>
+    <string name="article6link"></string>
+    <string name="EVStationsApiKey">z81ByCNp5MiukKlDiOLahKLWUhUdplalf1EMFhwb</string>
 </resources>
