@@ -1,18 +1,13 @@
-package com.unknown.proj;
+package com.autoload.app;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.card.MaterialCardView;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 

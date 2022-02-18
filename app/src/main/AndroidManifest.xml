@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.unknown.proj">
+    package="com.autoload.app">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -17,28 +17,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EVProject">
         <activity
-            android:name=".connect_n_control"
+            android:name="com.autoload.app.connect_n_control"
             android:exported="false" />
         <activity
-            android:name=".Location"
+            android:name="com.autoload.app.Location"
             android:exported="false" />
         <activity
-            android:name=".WebView"
+            android:name="com.autoload.app.WebView"
             android:exported="false" />
         <activity
-            android:name=".HomePage"
+            android:name="com.autoload.app.HomePage"
             android:exported="false" />
         <activity
-            android:name=".WalkThrough3"
+            android:name="com.autoload.app.WalkThrough3"
             android:exported="false" />
         <activity
-            android:name=".Walkthrough2"
+            android:name="com.autoload.app.Walkthrough2"
             android:exported="false" />
         <activity
-            android:name=".WalkThrough1"
+            android:name="com.autoload.app.WalkThrough1"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.autoload.app.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

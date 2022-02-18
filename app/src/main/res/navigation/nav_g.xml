@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/first_frag2"
-        android:name="com.unknown.proj.first_frag"
+        android:name="com.autoload.app.first_frag"
         android:label="fragment_first_frag"
         tools:layout="@layout/fragment_first_frag" />
     <fragment
         android:id="@+id/sec_frag2"
-        android:name="com.unknown.proj.sec_frag"
+        android:name="com.autoload.app.sec_frag"
         android:label="fragment_sec_frag"
         tools:layout="@layout/fragment_sec_frag" />
     <fragment
         android:id="@+id/third_frag2"
-        android:name="com.unknown.proj.third_frag"
+        android:name="com.autoload.app.third_frag"
         android:label="fragment_third_frag"
         tools:layout="@layout/fragment_third_frag" />
 </navigation>

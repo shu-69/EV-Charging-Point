@@ -1,4 +1,4 @@
-package com.unknown.proj;
+package com.autoload.app;
 
 import org.junit.Test;
 

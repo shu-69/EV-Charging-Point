@@ -1,4 +1,4 @@
-package com.unknown.proj;
+package com.autoload.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -9,9 +9,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.google.android.material.card.MaterialCardView;
-
-public class WalkThrough1 extends AppCompatActivity {
+public class Walkthrough2 extends AppCompatActivity {
 
     SwipeListener swipeListner;
     ConstraintLayout constraintLayout;
@@ -19,16 +17,17 @@ public class WalkThrough1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_walk_through1);
+        setContentView(R.layout.activity_walkthrough2);
 
         constraintLayout = findViewById(R.id.constraint_layout);
         swipeListner = new SwipeListener(constraintLayout);
 
         findViewById(R.id.nextScreen).setOnClickListener(v -> {
-            Intent intent = new Intent(WalkThrough1.this, Walkthrough2.class);
+            Intent intent = new Intent(Walkthrough2.this, WalkThrough3.class);
             startActivity(intent);
             overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
         });
+
     }
 
     private class SwipeListener implements View.OnTouchListener {
@@ -56,9 +55,12 @@ public class WalkThrough1 extends AppCompatActivity {
                                     if ( Math.abs(xDiff) > threshold && Math.abs(velocityX) > velocity_threshold ){
                                         if ( xDiff > 0 ){
                                             // Right Swipe
+                                            Intent intent = new Intent(Walkthrough2.this, WalkThrough1.class);
+                                            startActivity(intent);
+                                            overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
                                         }else{
                                             // Left Swipe
-                                            Intent intent = new Intent(WalkThrough1.this, Walkthrough2.class);
+                                            Intent intent = new Intent(Walkthrough2.this, WalkThrough3.class);
                                             startActivity(intent);
                                             overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
                                         }

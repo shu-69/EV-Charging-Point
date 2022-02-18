@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:993369185959:android:af22aa1e42545d7d2bc582",
+        "mobilesdk_app_id": "1:993369185959:android:f0f72320220101572bc582",
         "android_client_info": {
-          "package_name": "com.unknown.proj"
+          "package_name": "com.autoload.app"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "993369185959-j84haafn0nbkaq9c4hccl9gr15fa3k5q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.autoload.app",
+            "certificate_hash": "2e99fb1431cb4051423f92ed16623005f612781d"
+          }
+        },
         {
           "client_id": "993369185959-60vae7ph9dmhr2jmcguaiq2t6m1rqpog.apps.googleusercontent.com",
           "client_type": 3
